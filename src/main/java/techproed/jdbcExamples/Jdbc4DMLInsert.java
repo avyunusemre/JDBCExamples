@@ -43,10 +43,38 @@ public class Jdbc4DMLInsert {
 							"INSERT INTO bolumler VALUES (75, 'OFIS2', 'VAN')",
 		};
 		
-		for(String each : sorgular) {
-			st.executeUpdate(each);
-		}
+		int s2 = 0;
 		
+//		for(String each : sorgular) {
+//			s2 += st.executeUpdate(each);
+//		}
+		
+		System.out.println(s2 + " satir eklendi.");
+		
+		// 2.YONTEM (addBath ve excuteBatch() metotlari ile)
+     	// ----------------------------------------------------
+     	// addBatch metodu ile SQL ifadeleri gruplandirilabilir ve exucuteBatch()
+     	// metodu ile veritabanina bir kere gonderilebilir.
+     	// excuteBatch() metodu bir int [] dizi dondurur. Bu dizi her bir ifade sonucunda 
+     	// etkilenen satir sayisini gosterir. 
+		String [] sorgular1 = {"INSERT INTO bolumler VALUES(81, 'YEMEKHANE2', 'MUS')",
+	           	  			   "INSERT INTO bolumler VALUES(82, 'OFIS3','ORDU')",
+	           	  			   "INSERT INTO bolumler VALUES(83, 'OFIS4', 'MUGLA')"};
+		
+//		for(String each : sorgular1) {
+//			st.addBatch(each);
+//		}
+//		
+//		int[] s3 = st.executeBatch();
+//		System.out.println(s3.length + " satir eklendi.." );
+
+     	
+     	// 3. YONTEM
+     	//-----------------------------------------------------
+     	// batch metoduyla birlikte PreparedStatement kullanmak en efektif yontemdir.
+     	// bir sonraki ornekte bunu gerceklestirecegiz.
+		 
+		 
 		ResultSet rs = st.executeQuery("SELECT * FROM bolumler");
 		
 		while(rs.next()) {
